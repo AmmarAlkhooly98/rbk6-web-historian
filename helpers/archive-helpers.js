@@ -25,17 +25,54 @@ exports.initialize = function(pathsObj) {
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(callback) {
+exports.readListOfUrls = function(callback) {// done
+  fs.readFile(exports.paths.list,'utf8', ( err, data )=> {
+    var res = data.toString().split('\n');
+    callback(res);
+  });
 };
 
 exports.isUrlInList = function(url, callback) {
+  fs.readFile(exports.paths.list,'utf8', (err, data)=> {
+    // var res = data.toString().split('\n'); 
+    // var flag = false;
+    // for (let i = 0; i < res.length; i++) {
+    //   if (url === res[i]){
+    //     flag = true;
+    //   }
+    // }
+    // console.log(data);
+    callback((data.includes(url)));
+  })
 };
 
 exports.addUrlToList = function(url, callback) {
+  fs.appendFile(exports.paths.list, url, (err)=>{});
+  callback();
 };
 
 exports.isUrlArchived = function(url, callback) {
+  fs.readdir(exports.paths.archivedSites,'utf8', (err, file)=>{
+    callback(file.includes(url));
+  })
 };
 
 exports.downloadUrls = function(urls) {
+  // fs.writeFile(exports.paths.archivedSites, urls, (err)=>{
+  //   console.log(urls)
+  // });
+  // for (var i = 0; i < urls.length; i++) {
+      fs.mkdir(urls,{recursive: true}, (er)=>{});
+      // console.log(urls[i])
+  // }
+  
+
+  // fs.readdir(exports.paths.archivedSites,'utf8',(err,data)=>{
+    // for (var i = 0; i < urls.length; i++) {
+    //   if (!data.includes(urls[i])) {
+    //     data.push(urls[i]);
+    //   }
+    // }
+    // console.log(data);
+  // });
 };
