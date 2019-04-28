@@ -34,15 +34,15 @@ exports.readListOfUrls = function(callback) {// done
 
 exports.isUrlInList = function(url, callback) {
   fs.readFile(exports.paths.list,'utf8', (err, data)=> {
-    // var res = data.toString().split('\n'); 
-    // var flag = false;
-    // for (let i = 0; i < res.length; i++) {
-    //   if (url === res[i]){
-    //     flag = true;
-    //   }
-    // }
-    // console.log(data);
-    callback((data.includes(url)));
+    var res = data.toString().split('\n'); 
+    var flag = false;
+    for (let i = 0; i < res.length; i++) {
+      if (url === res[i]){
+        flag = true;
+      }
+    }
+    // console.log(data); 
+    callback(flag);//(data.includes(url))
   })
 };
 
@@ -58,14 +58,18 @@ exports.isUrlArchived = function(url, callback) {
 };
 
 exports.downloadUrls = function(urls) {
-  // fs.writeFile(exports.paths.archivedSites, urls, (err)=>{
-  //   console.log(urls)
-  // });
+  // var res = urls;
+  for (let i = 0; i < urls.length; i++) {
+
+    fs.writeFile('test/testdata/sites/',urls[i],(er)=>{console.log(er)})
+    // urls.write(req);
+  }
   // for (var i = 0; i < urls.length; i++) {
-      fs.mkdir(urls,{recursive: true}, (er)=>{});
+      // fs.mkdir(exports.paths.archivedSites,urls.toString('utf8'),(er,data)=>{
+      //  console.log(urls[1])
+      // });
       // console.log(urls[i])
   // }
-  
 
   // fs.readdir(exports.paths.archivedSites,'utf8',(err,data)=>{
     // for (var i = 0; i < urls.length; i++) {
@@ -76,3 +80,4 @@ exports.downloadUrls = function(urls) {
     // console.log(data);
   // });
 };
+this.downloadUrls(['www.example.com', 'www.google.com']);
